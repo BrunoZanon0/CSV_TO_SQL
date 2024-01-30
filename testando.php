@@ -1,15 +1,19 @@
 <?php
-
+// Conexão com o banco de dados
 include "connect.php";
 
-use League\Csv\Reader;
+// $host = localhost;  $user = 'root';  $pass=''; // db='SEU_BANCO_DE_DADOS'
 
+//biblioteca usada
+use League\Csv\Reader;
+// redirecione para o vendor
 require '../vendor/autoload.php';
 
+//CRIE UM INPUTC OM O NAME DE EXCEL e nao esqueça do entype do form
 if(isset($_FILES['excel']) && $_FILES['excel']['error'] === UPLOAD_ERR_OK) {
     $excel = $_FILES['excel']['name'];
     $nomeArquivo = pathinfo($excel, PATHINFO_FILENAME);
-
+    // Precisará criar uma pasta chamada Arquivos no mesmo diretorio do Testando.php
     $diretorioDestino = './Arquivos/';
 
     // Move o arquivo para o diretório de destino
@@ -98,7 +102,7 @@ if(isset($_FILES['excel']) && $_FILES['excel']['error'] === UPLOAD_ERR_OK) {
         $caminhoCompleto = "$diretorioDestino$nomeArquivo".'.CSV';
         unlink($caminhoCompleto);
 
-        header("location: ./concluiu.php");
+        header("location: ./concluiu.php"); // Realoque o usuario assim que terminar o processo.
         exit();
     } else {
         echo "Erro ao inserir dados: " . $conn->error;
